@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="googleeb64f31b492c3528" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marc Godwin | Développeur Passionné</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@0.395.0/dist/umd/lucide.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #030014; --primary: #6366f1; --secondary: #0ea5e9;
+            --text: #ffffff; --text-muted: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.08);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc; --text: #0f172a; --text-muted: #475569;
+            --card-bg: #ffffff; --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s ease; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border);
+            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        }
+        .nav-logo { font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+
+        /* --- HERO --- */
+        .hero { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; position: relative; }
+        .hero-content { max-width: 700px; }
+        .hero-title { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero-desc { color: var(--text-muted); font-size: 1.2rem; margin-bottom: 30px; }
+        .hero-primary { color: var(--primary); }
+        .hero-cta { 
+            position: static; 
+            width: auto; 
+            height: auto; 
+            border-radius: 12px; 
+            padding: 12px 25px; 
+            display: inline-flex; 
+            gap: 10px; 
+            font-weight: 600;
+            text-decoration: none;  
+        }
+        .hero-contact-btn {
+            position: static; 
+            width: auto; 
+            height: auto; 
+            border-radius: 12px; 
+            padding: 12px 25px; 
+            display: inline-flex; 
+            gap: 10px; 
+            font-weight: 600;
+            background-color: #25d366; 
+            color: white;
+            text-decoration: none;
+        }
+
+        /* --- PHOTO PROFIL --- */
+        .profile-container {
+            position: absolute; top: 120px; right: 8%; 
+            width: clamp(180px, 20vw, 250px); height: clamp(180px, 20vw, 250px);
+            border-radius: 50%; border: 4px solid var(--primary);
+            padding: 5px; background: var(--bg); z-index: 10;
+        }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1e1e1e; }
+
+        /* --- DIAPORAMA --- */
+        .slideshow-container {
+            width: 100%; max-width: 1000px; height: clamp(300px, 45vh, 500px); margin: 40px auto;
+            border-radius: 24px; overflow: hidden; position: relative; border: 1px solid var(--border);
+        }
+        .slide {
+            position: absolute; width: 100%; height: 100%; opacity: 0;
+            transition: opacity 1s ease-in-out; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; background: #000;
+        }
+        .slide.active { opacity: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .slide-caption {
+            position: absolute; bottom: 20px; background: var(--primary);
+            padding: 8px 25px; border-radius: 50px; font-weight: 800; font-size: 1.1rem;
+        }
+
+        /* --- SECTION BIO --- */
+        .bio-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
+        .bio-title { margin-bottom: 30px; font-size: 2rem; letter-spacing: -1px; }
+        .bio-text { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
+        .bio-quote { margin-top: 40px; border-left: 4px solid var(--primary); padding-left: 20px; }
+        .bio-quote h3 { margin-bottom: 10px; }
+        .highlight { color: var(--primary); font-weight: 600; }
+
+        /* --- GRID & SERVICES --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 40px 5%; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card h3 { margin: 15px 0; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            background: var(--card-bg); border: 1px solid var(--border);
+            color: var(--text); padding: 8px 18px; border-radius: 50px;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            position: relative; margin-top: 100px; padding: 80px 5% 40px;
+            background: linear-gradient(rgba(3, 0, 20, 0.7), rgba(3, 0, 20, 0.85)), 
+                        url('https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1400') center/cover;
+            color: white; border-top: 1px solid var(--border);
+        }
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto; display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+        }
+        .footer-profile-mini { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--secondary); margin-bottom: 15px; }
+        .footer-header { margin-bottom: 10px; }
+        .footer-section-title { margin-bottom: 20px; font-size: 1rem; color: var(--secondary); }
+        .footer-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.95rem; }
+        .footer-link:hover { color: var(--secondary); }
+        .footer-subtext { opacity: 0.8; font-size: 0.9rem; }
+        .social-row { display: flex; gap: 15px; margin-top: 20px; }
+        .social-btn { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
+        .social-btn:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-copyright { text-align: center; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.8rem; opacity: 0.6; }
+
+        /* --- UTILS --- */
+        .status-online { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #25d366; margin-bottom: 10px; }
+        .pulse { width: 8px; height: 8px; background: #25d366; border-radius: 50%; animation: pulse-web 2s infinite; }
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #25d366; 
+            width: 60px; height: 60px; border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center; color: white; z-index: 1000;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); text-decoration: none;
+        }
+
+        @keyframes pulse-web {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        @media (max-width: 992px) { 
+            .profile-container { position: relative; top: 0; right: 0; margin: 0 auto 30px; width: 200px; height: 200px; }
+            .hero { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-logo"><i data-lucide="terminal"></i> MARC GODWIN</div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+        <i id="themeIcon" data-lucide="sun" size="18"></i> <span id="themeText">Mode clair</span>
+    </button>
+</nav>
+
+<section class="hero">
+    <div class="profile-container" data-aos="zoom-in">
+        <img src="moi.jpg" alt="Marc Godwin" class="profile-img">
+    </div>
+    
+    <div class="hero-content" data-aos="fade-right">
+        <h1 class="hero-title">
+            Je transforme vos idées en <span class="hero-primary">expériences digitales.</span>
+        </h1>
+        <p class="hero-desc">
+            Étudiant passionné à l'UDs, je conçois des solutions web utiles, modernes et performantes.
+        </p>
+        <a href="#contact" class="hero-contact-btn" target="_blank" rel="noopener">
+            <i data-lucide="message-circle"></i> Discutons de votre projet
+        </a>
+    </div>
+</section>
+
+<div class="slideshow-container" data-aos="fade-up">
+    <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200" alt="Réflexion">
+        <div class="slide-caption">PENSER</div>
+    </div>
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200" alt="Code">
+        <div class="slide-caption">CODER</div>
+    </div>
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200" alt="Résultat">
+        <div class="slide-caption">CONCEVOIR</div>
+    </div>
+</div>
+
+<section class="bio-section" data-aos="fade-up">
+    <h2 class="bio-title">Qui suis-je ?</h2>
+    <p class="bio-text">
+        Je suis <span class="highlight">SIGNING DONGMO Marc Godwin</span>, un jeune camerounais passionné par l'univers du numérique. Après avoir obtenu mon <span class="highlight">Baccalauréat C en 2025 avec mention Bien</span>, j'ai choisi de transformer ma passion en expertise à l'université de Dschang (UDs) en filière Informatique.
+    </p>
+    <p class="bio-text">
+        Mon approche est simple : créer des outils qui résolvent de vrais problèmes. C'est dans cette optique que j'ai conçu <span class="highlight">FAXETUDIANTS</span>, une PWA d'archivage d'épreuves, ainsi qu'une solution de gestion avancée pour pharmacies <span class="highlight">PHARMACIE +</span>.
+    </p>
+    <div class="bio-quote">
+        <h3>Pourquoi me faire confiance ?</h3>
+        <p class="bio-text">Pas de grands discours, juste du travail bien fait. Je ne me prétends pas expert mondial, mais je m'engage à fournir un code propre, un design moderne et un suivi sérieux pour chaque projet.</p>
+    </div>
+</section>
+
+<div class="grid" id="services">
+    <div class="card" data-aos="fade-up">
+        <i data-lucide="layout" color="#6366f1"></i>
+        <h3>Pages Web</h3>
+        <p>Landing pages optimisées pour présenter un produit ou une offre unique.</p>
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="50">
+        <i data-lucide="monitor" color="#0ea5e9"></i>
+        <h3>Sites Vitrines</h3>
+        <p>Une présence pro pour votre activité avec une navigation fluide.</p>
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <i data-lucide="user-check" color="#6366f1"></i>
+        <h3>Portfolios</h3>
+        <p>Mise en valeur de vos talents et réalisations de façon créative.</p>
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="150">
+        <i data-lucide="smartphone" color="#0ea5e9"></i>
+        <h3>PWA & Web Apps</h3>
+        <p>Des applications comme FAXETUDIANTS, rapides et installables.</p>
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="200">
+        <i data-lucide="layers" color="#6366f1"></i>
+        <h3>Solutions SaaS</h3>
+        <p>Logiciels web sur-mesure pour automatiser vos processus business.</p>
+    </div>
+</div>
+
+<footer class="main-footer" id="contact">
+    <div class="footer-grid">
+        <div>
+            <img src="moi.jpg" alt="Marc Godwin" class="footer-profile-mini">
+            <h3 class="footer-header">SIGNING DONGMO Marc Godwin</h3>
+            <div class="status-online"><span class="pulse"></span> Disponible à tout instant</div>
+            <p class="footer-subtext">📍 Dschang, Ouest Cameroun</p>
+        </div>
+        
+        <div>
+            <h4 class="footer-section-title">Me joindre</h4>
+            <a href="mailto:marcgodwinsigningdongmo@gmail.com" class="footer-link"><i data-lucide="mail" size="18"></i> marcgodwinsigning@gmail.com</a>
+            <a href="tel:+237683242487" class="footer-link"><i data-lucide="phone" size="18"></i> +237 683 24 24 87</a>
+        </div>
+
+        <div>
+            <h4 class="footer-section-title">Réseaux Sociaux</h4>
+            <div class="social-row">
+                <a href="https://github.com/Godwin296" target="_blank" rel="noopener" class="social-btn" title="GitHub"><i data-lucide="github"></i></a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-btn" title="TikTok"><i data-lucide="music-2"></i></a>
+                <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube"><i data-lucide="youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        © 2026 - Conçu par Marc Godwin, étudiant de l'UDs.
+    </div>
+</footer>
+
+<a href="https://wa.me/237683242487" class="whatsapp-btn" target="_blank" rel="noopener" title="WhatsApp">
+    <i data-lucide="message-circle" size="32"></i>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    lucide.createIcons();
+    AOS.init({ duration: 800, once: true });
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 3500);
+
+    function toggleTheme() {
+        const body = document.body;
+        const text = document.getElementById('themeText');
+        const icon = document.getElementById('themeIcon');
+        
+        if (body.getAttribute('data-theme') === 'light') {
+            body.removeAttribute('data-theme');
+            text.innerText = "Mode clair";
+            icon.setAttribute('data-lucide', 'sun');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            text.innerText = "Mode sombre";
+            icon.setAttribute('data-lucide', 'moon');
+        }
+        lucide.createIcons();
+    }
+</script>
+</body>
+</html>
